@@ -3,7 +3,8 @@ FROM julia
 MAINTAINER Adrian Liaw (Wei-Han Liaw) <adrianliaw2000@gmail.com>
 
 RUN apt-get update && \
-    apt-get install -y python python-pip git curl libzmq-dev gcc g++ && \
+    apt-get install -y python-dev git curl libzmq-dev gcc g++ && \
+    curl https://bootstrap.pypa.io/get-pip.py | python && \
     pip install ipython[notebook] && \
     julia -e 'Pkg.add("IJulia")'
 
