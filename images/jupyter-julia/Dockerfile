@@ -26,13 +26,13 @@ RUN (echo "c = get_config()" && \
      echo "c.NotebookApp.password = passwd(os.environ.get('PASSWORD', 'jupyter'))") \
     > /root/.ipython/profile_julia/ipython_notebook_config.py
 
-RUN mkdir workspace && mkdir workspace/notebooks workspace/data
+RUN mkdir /root/workspace /root/workspace/notebooks /root/workspace/data
 
-ENV DIR /workspace
+ENV DIR /root/workspace
 ENV PASSWORD jupyter
 
 WORKDIR $DIR
 
 EXPOSE 8888
 
-CMD ["ipython", "notebook", "--profile", "julia"]
+CMD echo "ipython notebook --profile julia" | bash

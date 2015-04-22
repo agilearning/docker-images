@@ -48,4 +48,4 @@ WORKDIR $DIR
 
 EXPOSE 8888
 
-CMD ["ipython", "notebook"]
+CMD echo "ipython notebook" | bash

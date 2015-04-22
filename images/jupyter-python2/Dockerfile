@@ -4,7 +4,7 @@ MAINTAINER Adrian Liaw (Wei-Han Liaw) <adrianliaw2000@gmail.com>
 
 RUN pip install ipython[notebook] && \
     ipython profile create && \
-    mkdir workspace workspace/notebooks workspace/data
+    mkdir /root/workspace /root/workspace/notebooks /root/workspace/data
 
 RUN (echo "require(['base/js/namespace'], function (IPython) {" && \
      echo "  IPython._target = '_self';" && \
@@ -24,11 +24,10 @@ RUN (echo "c = get_config()" && \
     > /root/.ipython/profile_default/ipython_notebook_config.py
 
 ENV PASSWORD jupyter
-ENV DIR /workspace
+ENV DIR /root/workspace
 
 WORKDIR $DIR
 
 EXPOSE 8888
 
-CMD ipython notebook
-
+CMD echo "ipython notebook" | bash
