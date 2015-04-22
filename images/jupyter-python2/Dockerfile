@@ -2,9 +2,11 @@ FROM python:2.7
 
 MAINTAINER Adrian Liaw (Wei-Han Liaw) <adrianliaw2000@gmail.com>
 
-RUN pip install ipython[notebook] && \
-    ipython profile create && \
-    mkdir /root/workspace /root/workspace/notebooks /root/workspace/data
+RUN pip install ipython[notebook]
+
+RUN ipython profile create
+
+RUN mkdir /root/workspace /root/workspace/notebooks /root/workspace/data
 
 RUN (echo "require(['base/js/namespace'], function (IPython) {" && \
      echo "  IPython._target = '_self';" && \

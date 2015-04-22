@@ -1,11 +1,14 @@
-FROM r-base:latest
+FROM r-base:3.1.3
 
 MAINTAINER Adrian Liaw (Wei-Han Liaw) <adrianliaw2000@gmail.com>
 
-RUN apt-get update && \
-    apt-get install -y python-dev curl gcc g++ && \
-    curl https://bootstrap.pypa.io/get-pip.py | python && \
-    pip install ipython[notebook]
+RUN apt-get update
+
+RUN apt-get install -y python-dev curl gcc g++
+
+RUN curl https://bootstrap.pypa.io/get-pip.py | python
+
+RUN pip install ipython[notebook]
 
 RUN apt-get install -y libzmq3-dev libcurl4-openssl-dev && \
     (echo "install.packages('devtools')" && \
@@ -16,8 +19,9 @@ RUN apt-get install -y libzmq3-dev libcurl4-openssl-dev && \
      echo "install_github('IRkernel/IRdisplay', ref='multi-image')" && \
      echo "install_github('IRkernel/IRkernel')" && \
      echo "IRkernel::installspec()" ) \
-    | Rscript -e "source(file('stdin'))" && \
-    mkdir /root/workspace /root/workspace/notebooks /root/workspace/data
+   | Rscript -e "source(file('stdin'))"
+
+RUN mkdir /root/workspace /root/workspace/notebooks /root/workspace/data
 
 RUN (echo "require(['base/js/namespace'], function (IPython) {" && \
      echo "  IPython._target = '_self';" && \

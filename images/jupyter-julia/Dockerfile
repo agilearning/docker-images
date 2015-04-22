@@ -1,12 +1,16 @@
-FROM julia
+FROM julia:0.3.7
 
 MAINTAINER Adrian Liaw (Wei-Han Liaw) <adrianliaw2000@gmail.com>
 
-RUN apt-get update && \
-    apt-get install -y python-dev git curl libzmq-dev gcc g++ && \
-    curl https://bootstrap.pypa.io/get-pip.py | python && \
-    pip install ipython[notebook] && \
-    julia -e 'Pkg.add("IJulia")'
+RUN apt-get update
+
+RUN apt-get install -y python-dev git curl libzmq-dev gcc g++
+
+RUN curl https://bootstrap.pypa.io/get-pip.py | python
+
+RUN pip install ipython[notebook]
+
+RUN julia -e 'Pkg.add("IJulia")'
 
 RUN (echo "require(['base/js/namespace'], function (IPython) {" && \
      echo "  IPython._target = '_self';" && \
